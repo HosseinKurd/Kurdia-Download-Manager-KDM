@@ -14,15 +14,18 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class KDM {
 
     private static KDM instance = null;
     private DataBaseManager mDBManager;
+    private Map<String, Downloader> queue;
     private Thread thread;
 
     private KDM() {
-
+        queue = new LinkedHashMap<>();
     }
 
     public static KDM getInstance() {
@@ -68,7 +71,7 @@ public class KDM {
         return false;
     }
 
-    public void downloadFile(String urlString, @Nullable OnDownload onDownload) {
+    public void download(String urlString, @Nullable OnDownload onDownload) {
         Runnable runnable = () -> {
             int downloadedSize = 0;
             int totalSize = 0;

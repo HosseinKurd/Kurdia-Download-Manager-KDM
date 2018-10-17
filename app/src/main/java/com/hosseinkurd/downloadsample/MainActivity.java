@@ -26,8 +26,7 @@ public class MainActivity extends AppCompatActivity implements OnDownload {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == STORAGE_PERMISSION_RC &&  grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            button.setEnabled(false);
-            KDM.getInstance().downloadFile("http://shared.v3.abring.ir/data/applications/com.aseman.nahal/posts/video/2b717d97e79a193af08639da6d73a9ac.mp4", this);
+            download();
         }
     }
 
@@ -40,12 +39,14 @@ public class MainActivity extends AppCompatActivity implements OnDownload {
         button = findViewById(R.id.button);
         button.setOnClickListener(v -> {
             if (isStoragePermissionGranted(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                v.setEnabled(false);
-                KDM.getInstance().downloadFile("http://shared.v3.abring.ir/data/applications/com.aseman.nahal/posts/video/2b717d97e79a193af08639da6d73a9ac.mp4", this);
-            } else {
-
+                download();
             }
         });
+    }
+
+    private void download() {
+        button.setEnabled(false);
+        // KDM.getInstance().downloadFile("http://shared.v3.abring.ir/data/applications/com.aseman.nahal/posts/video/2b717d97e79a193af08639da6d73a9ac.mp4", this);
     }
 
     @Override
